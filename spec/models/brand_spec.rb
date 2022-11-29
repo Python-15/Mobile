@@ -11,14 +11,21 @@ RSpec.describe Brand, type: :model do
   end
 
   it 'has an invalid name' do
-    brand.Name = ''
+    brand.name = ''
      expect(brand).not_to be_valid
-     expect(brand.errors[:Name]).to include("can't be blank")
+     expect(brand.errors[:name]).to include("can't be blank")
    end
+   it 'Brand name should be unique' do
+    brand1 = create(:brand)
+    expect(brand1).to be_valid
+    dublicate = build(:brand, name: brand1.name)
+    expect(dublicate).not_to be_valid
+    expect(dublicate.errors[:name]).to include('has already been taken')
+  end
    it 'has an valid Country of Origin' do
-     brand.CountryOfOrigin = ''
+     brand.country_of_origin = ''
      expect(brand).not_to be_valid
-     expect(brand.errors[:CountryOfOrigin]).to include("can't be blank")
+     expect(brand.errors[:country_of_origin]).to include("can't be blank")
    end
 
  end

@@ -44,20 +44,20 @@ ActiveRecord::Schema.define(version: 2022_11_27_084415) do
   end
 
   create_table "brands", force: :cascade do |t|
-    t.string "Name"
-    t.string "CountryOfOrigin"
+    t.string "name", null: false
+    t.string "country_of_origin", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "devices", force: :cascade do |t|
-    t.string "phone_name"
-    t.string "model_no"
-    t.integer "mrp"
-    t.integer "sp"
-    t.string "availability"
-    t.string "image"
-    t.integer "IMEI"
+    t.string "phone_name", null: false
+    t.string "model_no", null: false
+    t.integer "mrp", null: false
+    t.integer "sp", null: false
+    t.boolean "availability_status", default: false
+    t.string "image", null: false
+    t.integer "imei", null: false
     t.bigint "brand_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -65,12 +65,12 @@ ActiveRecord::Schema.define(version: 2022_11_27_084415) do
   end
 
   create_table "specifications", force: :cascade do |t|
-    t.string "camera"
-    t.string "processor"
-    t.string "ram"
-    t.string "storage"
-    t.string "battery"
-    t.string "os_type"
+    t.string "camera", null: false
+    t.string "processor", null: false
+    t.string "ram", null: false
+    t.string "storage", null: false
+    t.string "battery", null: false
+    t.string "os_type", null: false
     t.bigint "device_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

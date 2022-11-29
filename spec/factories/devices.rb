@@ -5,10 +5,10 @@ FactoryBot.define do
     mrp { 1 }
     sp { 1 }
 
-    availability { "MyString" }
+    availability_status { true }
     image { "MyString" }
-    IMEI { 1 }
-   
+    imei { 1 }
+    
    
     association :brand
   end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :brand do
-    sequence (:Name) {|n| "MyString #{n}" } 
-    CountryOfOrigin { "MyString" }
+    sequence (:name) {|n| "MyString #{n}" } 
+    country_of_origin { "MyString" }
   end
 end

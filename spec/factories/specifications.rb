@@ -6,7 +6,7 @@ FactoryBot.define do
     storage { "MyString" }
     battery { "MyString" }
     os_type { "MyString" }
-    device_id { 1 }
+ 
     association :device
   end
 end
