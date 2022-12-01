@@ -7,7 +7,7 @@ class CreateDevices < ActiveRecord::Migration[6.1]
       t.integer :sp, null: false
       t.boolean :availability_status ,:default => false
       t.string :image ,null: false
-      t.integer :imei ,null: false ,unique: true
+      t.bigint :imei ,null: false ,unique: true
       t.belongs_to :brand, null: false, foreign_key: true, index: true
       t.timestamps
     end

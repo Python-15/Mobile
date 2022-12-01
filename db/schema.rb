@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2022_11_27_084415) do
     t.integer "sp", null: false
     t.boolean "availability_status", default: false
     t.string "image", null: false
-    t.integer "imei", null: false
+    t.bigint "imei", null: false
     t.bigint "brand_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

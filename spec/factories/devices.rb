@@ -7,9 +7,9 @@ FactoryBot.define do
 
     availability_status { true }
     image { "MyString" }
-    imei { 1 }
+    imei { 123456789012345 }
     
-   
+    
     association :brand
   end
 end
