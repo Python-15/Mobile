@@ -42,11 +42,11 @@ RSpec.describe Device, type: :model do
        expect(device.errors[:sp]).to include("can't be blank")
      end
       
-     it 'has an invalid Availability' do
-      device.availability_status =  ''
-       expect(device).not_to be_valid
-       expect(device.errors[:availability_status]).to include("can't be blank")
-     end 
+    #  it 'has an invalid Availability' do
+    #   device.availability_status =  ''
+    #    expect(device).not_to be_valid
+    #    expect(device.errors[:availability_status]).to include("can't be blank")
+    #  end 
      it 'has an invalid IMEI' do
       device.imei =  ''
        expect(device).not_to be_valid

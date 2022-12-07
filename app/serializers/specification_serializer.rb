@@ -1,4 +1,4 @@
 class SpecificationSerializer
   include JSONAPI::Serializer
-  attributes 
+  attributes :camera, :processor, :ram ,:storage, :battery, :os_type
 end

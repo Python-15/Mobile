@@ -65,11 +65,11 @@ ActiveRecord::Schema.define(version: 2022_11_27_084415) do
   end
 
   create_table "specifications", force: :cascade do |t|
-    t.string "camera", null: false
+    t.integer "camera", null: false
     t.string "processor", null: false
-    t.string "ram", null: false
-    t.string "storage", null: false
-    t.string "battery", null: false
+    t.integer "ram", null: false
+    t.integer "storage", null: false
+    t.integer "battery", null: false
     t.string "os_type", null: false
     t.bigint "device_id", null: false
     t.datetime "created_at", precision: 6, null: false

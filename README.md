@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Part-4 Submission
 
-Things you may want to cover:
+Create following APIs:
 
-* Ruby version
+Get all phone specifications & photos by device ID, 
 
-* System dependencies
+List all phones under a specific brand.
 
-* Configuration
+Search phones by their names
 
-* Database creation
+Search phones by their price range
 
-* Database initialization
+Return all available phones under a specific brand.
 
-* How to run the test suite
+Edit availability status for a particular phone.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Add Unit test specs.
