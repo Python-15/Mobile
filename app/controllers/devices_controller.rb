@@ -1,44 +1,86 @@
 class DevicesController < ApplicationController
+
   def index
-    render json: Device.all, status: :ok
-  end
+   devices =Device.all.joins(:img_attachment)
+   render json:DeviceSerializer.new(devices)
+end 
+
   def show
-    @device = Device.find(params[:id])
-    render json: @device , status: 200
+    device = Device.find_by_id(params[:id])
+    if device.img.attached? 
+      render json:DeviceSerializer.new(device).as_json.merge(
+                  image: url_for(device.img))
+   else 
+     render json:DeviceSerializer.new(device)
+    end
+end
+
+  
+  def showallphonesbybrand
+    
+    brand = Brand.find_by_name(params[:name])
+  
+    devices = brand.devices.all
+    render json: DeviceSerializer.new(devices)
   end
-  def new
-    @device =Device.new
+
+   def searchbynames
+   
+    device = Device.find_by_phone_name(params[:phone_name])
+    render json:DeviceSerializer.new(device) , status: :ok
+   end
+   
+   def availablephone
+ 
+    brand = Brand.find_by_name(params[:name])
+    
+    device = brand.devices.where(availability_status: true)
+  
+
+    render json:DeviceSerializer.new(device)
+
+   end
+  def searchbypricerange
+    
+    device = Device.where(sp:(params[:min_price]..params[:max_price]))
+    render json:DeviceSerializer.new(device)
   end
   
+
+
   def create
-    @device =Device.new(device_params)
-    if @device.save
-      render json: @device, status: 200
+    device = Device.new(device_params)
+    if device.save
+      render json: device
     else
-       render json: {
-        error: " error while crearting "
-       }
+      render error: {error: 'Unable to create a device'}, status: 400
+    end
   end
-end
+  
+
   def update
-    @device = Device.find(params[:id])
-    if @device.update(brand_params)
-      render json: "Updeted successfully"
+    device = Device.find(params[:id])
+    if device.update(device_params)
+      render json:DeviceSerializer.new(device),status: :ok
     else
       render json:{
         error: "Device not found"
       }
     end
   end
+    
+
    def destroy
-    @device = Device.find(params[:id])
-    if @device.delete
+    device = Device.find(params[:id])
+    if device.delete
       render json: "Device has been deleted"
     end
    end
+
    private
+
    def device_params
-    params.require(:device).permit(:phone_name, :model_no, :mrp, :sp, :availability_status, imei)
+    params.permit(:phone_name, :model_no, :mrp, :sp, :availability_status, :image, :imei, :brand_id, :img)
    end
 
-end
+  end

@@ -1,12 +1,26 @@
 Rails.application.routes.draw do
-   
-  get "/brand", to: "brand#show"
-  get "/device", to: "device#show"
-  post "/brand", to: "brand#create"
-
+  
+  
+  
   resources :brands
-  resources :devices
-  resources :specifications
-  get "/specifications", to: "specification#index"
+  
+  
+  resources :devices do
+    collection do
+      get :showallphonesbybrand
+      get :searchbynames
+      get :availablephone
+      get :searchbypricerange
+      
+    end
+  end
+  resources :specifications do
+    collection do
+      get :showspecification
+      get :showphonedetails
+    end
+  end
+
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

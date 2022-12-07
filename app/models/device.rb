@@ -1,7 +1,7 @@
 class Device < ApplicationRecord
     belongs_to :brand
     has_one :specification
-    validates :phone_name, :model_no, :mrp,:sp ,:availability_status, :imei ,presence: true
+    validates :phone_name, :model_no, :mrp,:sp , :imei ,presence: true
     #validates :mrp ,numericality: { greater_than_or_equal_to: :sp}
     validates :imei,length: { is: 15 }
     validate :mrp_greater_than_or_equal_to_sp
@@ -13,5 +13,5 @@ class Device < ApplicationRecord
   end 
   #validates :brand_id , presence: true
   validates_associated :brand
-    
+  has_many_attached :img
 end
