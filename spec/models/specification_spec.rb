@@ -4,11 +4,9 @@ RSpec.describe Specification, type: :model do
 
   describe '#validations' do
   let(:specification) { build(:specification) }
-  it 'tests that factory is valid' do
+  it 'tests that specification is valid' do
     expect(specification).to be_valid 
-    specification.save!
-    spec2 = build(:specification)
-    expect(spec2).to be_valid
+   
   end
   it 'camera should be present' do
     specification.camera =  ''
@@ -34,7 +32,11 @@ RSpec.describe Specification, type: :model do
     specification.os_type =  ''
      expect(specification).not_to be_valid
      expect(specification.errors[:os_type]).to include("can't be blank")
+
    end  
+   it "is invalid without a device" do
+    expect(build(:specification, device: nil)).to_not be_valid
+  end
 end
 
 end

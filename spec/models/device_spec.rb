@@ -1,15 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe Device, type: :model do
-  describe '#validations' do
-    let!(:device) { build(:device) }
-    it 'tests that factory is valid' do
-      expect(device).to be_valid 
-      device.save!
-      device2 = build(:device)
-      expect(device2).to be_valid
+  describe 'brand associaton' do
+   
+    it "is invalid without a brand" do
+      expect(build(:device, brand: nil)).to_not be_valid
     end
-
+    
+      
+  end
+  describe '#validations' do
+    let(:device) { build(:device) }
+    it 'tests that Device is valid' do
+      expect(device).to be_valid 
+      
+      #device2 = build(:device)
+      #expect(device2).to be_valid
+    end
+    
     
     it 'has an valid phone_name' do
       device.phone_name = ''
@@ -48,7 +56,12 @@ RSpec.describe Device, type: :model do
       device.imei = 123456789012345
       expect(device).to be_valid
      end
-    
+     it 'MRP must be greater than or equal to selling price' do
+      device.mrp = 3000
+      device.sp = 2000
+      expect(device).to be_valid
+     end
+
  end
 
 end
