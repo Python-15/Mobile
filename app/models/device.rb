@@ -13,5 +13,5 @@ class Device < ApplicationRecord
   end 
   #validates :brand_id , presence: true
   validates_associated :brand
-  has_many_attached :img
+  has_one_attached :img
 end

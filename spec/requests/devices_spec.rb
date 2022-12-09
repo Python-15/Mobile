@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Devices", type: :request do
  
   let(:brand) { create :brand }
-  let(:device) { create :device }
+  let!(:device) {create(:device, brand_id: brand.id)}
 
   describe "GET /index" do
     it "returns http success" do
@@ -25,8 +25,7 @@ RSpec.describe "Devices", type: :request do
   end
   
   describe "GET #showallphonesbybrand" do
-  # let(:brand) { create :brand }
-  # let(:device) { create :device }
+  
  
    subject { get "/devices/showallphonesbybrand?name=#{brand.name}"}
    
@@ -38,7 +37,26 @@ RSpec.describe "Devices", type: :request do
     subject
     
      body = JSON.parse(response.body).deep_symbolize_keys
-      expect(body).not_to be_empty
+     #debugger
+      expect(body).to eq(
+      data: [
+        {
+          id: device.id.to_s,
+            type: 'device',
+            attributes: {
+
+
+      phone_name: device.phone_name,
+       model_no: device.model_no,
+       mrp: device.mrp,
+       sp: device.sp,
+      availability_status: device.availability_status,
+      imei: device.imei
+            }
+          }
+   ]
+   
+      )
      
    end
 
@@ -91,28 +109,31 @@ RSpec.describe "Devices", type: :request do
    it 'returns a proper JSON' do
     subject
      
-     body = JSON.parse(response.body)
+     body = JSON.parse(response.body).deep_symbolize_keys
      #debugger
       expect(body).to eq(
-        data:[
-        {
-          id: device.id.to_s,
-            type: 'device',
-            attributes: {
-
-
-      phone_name: device.phone_name,
-       model_no: device.model_no,
-       mrp: device.mrp,
-       sp: device.sp,
-      availability_status: device.availability_status,
-      imei: device.imei
+        data: [
+          {
+            id: device.id.to_s,
+              type: 'device',
+              attributes: {
+  
+  
+        phone_name: device.phone_name,
+         model_no: device.model_no,
+         mrp: device.mrp,
+         sp: device.sp,
+        availability_status: device.availability_status,
+        imei: device.imei
+              }
             }
-          }
-        ]
+     ]
+     
         )
-   end
-  end
+       
+     end
+  
+    end
 
       describe "PATCH #update" do
         
@@ -151,7 +172,7 @@ RSpec.describe "Devices", type: :request do
         
      describe "GET #searchbypricerange" do
     
-     subject { get "/devices/searchbypricerange?min_price=40000&max_price=50000"}
+     subject { get "/devices/searchbypricerange?min_price=#{device.sp}&max_price=50000"}
    
      before { subject }
     it 'returns a sucess response' do
@@ -160,9 +181,30 @@ RSpec.describe "Devices", type: :request do
     it 'returns a proper JSON' do
       subject
       body = JSON.parse(response.body).deep_symbolize_keys
-       expect(body).not_to be_empty
+      #debugger
+       expect(body).to eq(
+        data: [
+          {
+            id: device.id.to_s,
+              type: 'device',
+              attributes: {
+  
+  
+        phone_name: device.phone_name,
+         model_no: device.model_no,
+         mrp: device.mrp,
+         sp: device.sp,
+        availability_status: device.availability_status,
+        imei: device.imei
+              }
+            }
+     ]
+     
+        )
+       
+     end
+  
     end
-   end
   end
    
 

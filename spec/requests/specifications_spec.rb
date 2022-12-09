@@ -34,40 +34,39 @@ RSpec.describe "Specifications", type: :request do
   end
  end
   
+ 
  describe "GET #showspecification" do
  
  let(:device) { create :device }
+ let!(:specification) {create(:specification, device_id: device.id)}
 
   subject { get "/specifications/showspecification?device_id=#{device.id}"}
+  it 'returns a proper JSON' do
+    subject
+    body = JSON.parse(response.body).deep_symbolize_keys
+    #debugger
+     expect(body).to eq(
+      specification: {
+      data:
+      {
+        id: specification.id.to_s,
+        type: 'specification',
+        attributes: {
+          camera: specification.camera,
+            processor: specification.processor,
+            ram: specification.ram,
+            storage: specification.storage,
+            battery: specification.battery,
+            os_type: specification.os_type
+        }
+      }
+    
+      
+    }
+     )
   
-  before { subject }
-  it 'returns a sucess response' do
-   expect(response).to have_http_status(:ok)
-  end
 end
-#   it 'returns a proper JSON' do
-#    subject
- 
-#     body = JSON.parse(response.body).deep_symbolize_keys
-#     pp body
-#      expect(body).to eq(
-#        data:
-#        {
-#          id: specification.id.to_s,
-#            type: 'specification',
-#            attributes: {
-#             camera: specification.camera,
-#             processor: specification.processor,
-#             ram: specifications.processor,
-#             storage: specification.storage,
-#             battery: specification.battery,
-#             os_type: specification.os_type
-#         }
-#     },
-#     image: device.img
-#        )
-#   end
-#  end
 
 
+end
 end

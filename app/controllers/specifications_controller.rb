@@ -41,9 +41,13 @@ class SpecificationsController < ApplicationController
    
   def showspecification
     device = Device.find(params[:device_id])
+    
     specification = Specification.find_by_device_id(params[:device_id])
+    if device.img.attached?
     render json: SpecificationSerializer.new(specification).as_json.merge(image: url_for(device.img)), status: :ok
-
+    else
+      render json: { specification: SpecificationSerializer.new(specification) }, status: :ok
+    end
   end
 
   

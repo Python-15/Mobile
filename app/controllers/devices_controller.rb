@@ -1,15 +1,14 @@
 class DevicesController < ApplicationController
 
   def index
-   devices =Device.all.joins(:img_attachment)
+   devices =Device.all
    render json:DeviceSerializer.new(devices)
 end 
 
   def show
     device = Device.find_by_id(params[:id])
     if device.img.attached? 
-      render json:DeviceSerializer.new(device).as_json.merge(
-                  image: url_for(device.img))
+      render json:DeviceSerializer.new(device)
    else 
      render json:DeviceSerializer.new(device)
     end
